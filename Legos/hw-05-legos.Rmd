@@ -29,6 +29,7 @@ This week we'll do some data gymnastics to refresh and review what we learned ov
 Go to the course GitHub organization and locate your homework repo, clone it in RStudio and open the R Markdown document.
 Knit the document to make sure it compiles without errors.
 Do something else too. [Git test!]
+And another thing! [Another test]
 
 ## Warm up
 
