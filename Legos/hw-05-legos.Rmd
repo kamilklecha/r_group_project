@@ -64,10 +64,13 @@ For each question, state your answer in a sentence, e.g. "In this sample, the fi
 Note that the answers to all questions are within the context of this particular sample of sales, i.e. you shouldn't make inferences about the population of all Lego sales based on this sample.
 
 1.  What are the three most common first names of purchasers?
+In this sample, the three common first names of purchasers are Jackson, Jacob, Joseph
 
 2.  What are the three most common themes of Lego sets purchased?
+In this sample, the three most common themes of Lego sets purchased are Star Wars, Nexo Knights, Gear, and Mixels
 
 3.  Among the most common theme of Lego sets purchased, what is the most common subtheme?
+In this sample, the most common theme of Lego sets purchased is Star Wars, and the most common subtheme is The Force Awakens 
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
