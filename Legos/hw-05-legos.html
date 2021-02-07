@@ -143,7 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This week we’ll do some data gymnastics to refresh and review what we learned over the past few weeks using (simulated) data from Lego sales in 2018 for a sample of customers who bought Legos in the US.</p>
 <div id="getting-started" class="section level1">
 <h1>Getting started</h1>
-<p>Go to the course GitHub organization and locate your homework repo, clone it in RStudio and open the R Markdown document. Knit the document to make sure it compiles without errors.</p>
+<p>Go to the course GitHub organization and locate your homework repo, clone it in RStudio and open the R Markdown document. Knit the document to make sure it compiles without errors. Do something else too. [Git test!] And another thing! [Another test]</p>
 <div id="warm-up" class="section level2">
 <h2>Warm up</h2>
 <p>Before we introduce the data, let’s warm up with some simple exercises. Update the YAML of your R Markdown file with your information, knit, commit, and push your changes. Make sure to commit with a meaningful commit message. Then, go to your repo on GitHub and confirm that your changes are visible in your Rmd <strong>and</strong> md files. If anything is missing, commit and push again.</p>
@@ -163,28 +163,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>Exercises</h1>
 <p>Answer the following questions using pipelines. For each question, state your answer in a sentence, e.g. “In this sample, the first three common names of purchasers are …”. Note that the answers to all questions are within the context of this particular sample of sales, i.e. you shouldn’t make inferences about the population of all Lego sales based on this sample.</p>
 <ol style="list-style-type: decimal">
-<li><p>What are the three most common first names of purchasers?</p></li>
-<li><p>What are the three most common themes of Lego sets purchased?</p></li>
-<li><p>Among the most common theme of Lego sets purchased, what is the most common subtheme?</p></li>
+<li>What are the three most common first names of purchasers?</li>
 </ol>
+<p>In this sample, the three common first names of purchasers are Jackson, Jacob, Joseph</p>
+<ol start="2" style="list-style-type: decimal">
+<li>What are the three most common themes of Lego sets purchased?</li>
+</ol>
+<p>In this sample, the three most common themes of Lego sets purchased are Star Wars, Nexo Knights, Gear, and Mixels</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Among the most common theme of Lego sets purchased, what is the most common subtheme?</li>
+</ol>
+<p>In this sample, the most common theme of Lego sets purchased is Star Wars, and the most common subtheme is The Force Awakens</p>
 <p>🧶 ✅ ⬆️ Knit, <em>commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.</em></p>
 <p><label for="tufte-mn-1" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint:</strong> Use the <code>case_when()</code> function.</span></span></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a new variable called <code>age_group</code> and group the ages into the following categories: “18 and under”, “19 - 25”, “26 - 35”, “36 - 50”, “51 and over”.</li>
 </ol>
-<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint:</strong> You will need to consider quantity of purchases.</span></span></p>
+<pre><code>lego_sales &lt;- lego_sales %&gt;%
+  mutate(age_group = case_when(
+    age &lt;= 18 ~ &quot;18 and under&quot;,
+    age &gt;= 19 &amp; age &lt;= 25 ~ &quot;19 - 25&quot;,
+    age &gt;= 26 &amp; age &lt;= 35 ~ &quot;26 - 35&quot;,
+    age &gt;= 36 &amp; age &lt;= 50 ~ &quot;36 - 50&quot;,
+    age &gt;= 51 ~ &quot;51 and over&quot;
+  ))</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Which age group has purchased the highest number of Lego sets.</li>
 </ol>
-<p><label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint:</strong> You will need to consider quantity of purchases as well as price of lego sets.</span></span></p>
+<p>lego_sales %&gt;% count(age_group, sort = TRUE)</p>
+<p>In this sample group of 36-50 yo purchased the highest number of Lego sets.</p>
 <ol start="6" style="list-style-type: decimal">
 <li>Which age group has spent the most money on Legos?</li>
 </ol>
-<p><label for="tufte-mn-4" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint:</strong> The <a href="https://stringr.tidyverse.org/reference/str_sub.html"><code>str_sub()</code></a> function will be helpful here!</span></span></p>
+<pre><code>lego_sales %&gt;%
+  mutate(
+    amount_spent = us_price * quantity
+  ) %&gt;%
+  group_by(age_group) %&gt;%
+  summarise(
+    total_spent = sum(amount_spent)
+  ) %&gt;%
+  arrange(desc(total_spent))</code></pre>
+<p>In this sample group of 36-50 yo has spent the most money on Legos.</p>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Which Lego theme has made the most money for Lego?</p></li>
-<li><p>Which area code has spent the most money on Legos? In the US the area code is the first 3 digits of a phone number.</p></li>
-<li><p>Come up with a question you want to answer using these data, and write it down. Then, create a data visualization that answers the question, and explain how your visualization answers the question.</p></li>
+<li>Which Lego theme has made the most money for Lego?</li>
+</ol>
+<pre><code>lego_sales %&gt;%
+  mutate(
+    amount_spent = us_price * quantity
+  ) %&gt;%
+  group_by(theme) %&gt;%
+  summarise(
+    total_spent = sum(amount_spent)
+  ) %&gt;%
+  arrange(desc(total_spent))</code></pre>
+<p>In this sample Star Wars has made the most money for Lego</p>
+<ol start="8" style="list-style-type: decimal">
+<li>Which area code has spent the most money on Legos? In the US the area code is the first 3 digits of a phone number.</li>
+</ol>
+<pre><code>lego_sales %&gt;%
+  mutate(
+    amount_spent = us_price * quantity
+  ) %&gt;%
+  group_by(substr(phone_number, 1, 3)) %&gt;%
+  summarise(
+    total_spent = sum(amount_spent)
+  ) %&gt;%
+  arrange(desc(total_spent))  </code></pre>
+<p>In this sample area code of 956 (state of Texas) has spent the most money on Legos</p>
+<ol start="9" style="list-style-type: decimal">
+<li><p>Come up with a question you want to answer using these data, and write it down. Then, create a data visualization that answers the question, and explain how your visualization answers the question.</p>
+<p>/question under construction/ll</p></li>
 </ol>
 <p>🧶 ✅ ⬆️ Knit, <em>commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you’re happy with the final state of your work.</em></p>
 </div>
