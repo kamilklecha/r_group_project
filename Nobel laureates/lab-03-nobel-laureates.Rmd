@@ -1,5 +1,6 @@
 ---
 title: "Lab 03 - Nobel laureates"
+author: "Honorata Hurnik + Kamil Klecha"
 output: 
   tufte::tufte_html:
     css: lab.css
