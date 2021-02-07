@@ -134,7 +134,7 @@ lego_sales %>%
   geom_col(position = 'dodge') + 
   theme_minimal() +
   labs(
-    title = "Wich age group is most commonly to buy specific theme of Lego?",
+    title = "Which age group is most commonly to buy a specific theme of Lego?",
     subtitle = "Lego sales in 2018 for a sample of customers who bought Legos in the US.",
     x = NULL, y = NULL, fill = "Age group"
   ) +
