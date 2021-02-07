@@ -36,6 +36,8 @@ daily_nomask = ave(df$nomask, FUN=function(x) c(NA,diff(x)))
 df_daily = data.frame(df)
 df_daily$mask = daily_mask
 df_daily$nomask = daily_nomask
+df_daily = df_daily[-1,] #i remove first element since there is no previous value to differ
+df_daily
 
 
 
@@ -47,14 +49,18 @@ plot_regular = ggplot(df, aes(x=date)) +
 
 #daily df wide to long
 df_daily$date = factor(df_daily$date)
-df_daily_long = gather(df, ifmasked, cases, mask, nomask)
+df_daily_long = gather(df_daily, ifmasked, cases, mask, nomask)
 
 
 plot_daily = ggplot(df_daily_long, aes(x = date, y = cases, fill = ifmasked)) +
-  geom_col( position = "dodge")
+  geom_col( position = "dodge") +
+  theme(axis.text.x = element_text(angle = -30, vjust = 1, hjust = 0)) +
+  labs(x="Date", y="Change of the average", fill="Counties", title="Daily change between 7-day rolling average of daily cases/100K population")
 
+
+
+plot(plot_daily)
 plot(plot_regular)
-
 
 
   
