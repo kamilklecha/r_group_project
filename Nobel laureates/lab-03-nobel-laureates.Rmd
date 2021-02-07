@@ -211,6 +211,12 @@ You don't have to switch at each exercise, you can find your a cadence that work
 
 1.  How many observations and how many variables are in the dataset? Use inline code to answer this question. What does each row represent?
 
+```{r echo=FALSE}
+nrow(nobel)
+ncol(nobel)
+print("Each row represents a nobel laureat.")
+```
+
 There are some observations in this dataset that we will exclude from our analysis to match the Buzzfeed results.
 
 2.  Create a new data frame called `nobel_living` that filters for
@@ -220,12 +226,8 @@ There are some observations in this dataset that we will exclude from our analys
 -   laureates who are still alive (their `died_date` is `NA`)
 
 ```{r echo=FALSE}
-nobel_living <- nobel %>%
-  filter(
-    !is.na(country),
-    gender != "org",
-    is.na(died_date)
-  )
+nobel_living <- filter(nobel, !is.na(country), gender!="org", is.na(died_date))
+head(nobel_living)
 ```
 
 Confirm that once you have filtered for these characteristics you are left with a data frame with `r nrow(nobel_living)` observations, once again using inline code.
@@ -273,6 +275,22 @@ This means you'll need to define this data frame in your R Markdown document, ev
     -   For each facet you should have two bars, one for winners in the US and one for Other.
     -   Flip the coordinates so the bars are horizontal, not vertical.
 
+```{r echo=FALSE}
+ggplot(nobel_living_science, aes(y = category, fill=country_us)) +
+  geom_bar(position="dodge") +
+  theme(legend.position="top") +
+  ggtitle("On one graph") +
+  labs(y="Category",fill="Country of birth",x="Number of laureates")
+
+ggplot(nobel_living_science, aes(y = country_us)) + 
+  geom_bar() +
+  facet_wrap(~category) +
+  ggtitle("Faceted version") + 
+  labs(y="Country of award",fill="Country of birth",x="Number of laureates")
+
+print("It seems like the data supports the claim, as most of the Nobel lauerates were based in US when being awarded with that prize.")
+```
+
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.d*
 
 ## But of those US-based Nobel laureates, many were born in other countries
@@ -283,6 +301,15 @@ This means you'll need to define this data frame in your R Markdown document, ev
 
 4.  Create a new variable called `born_country_us` that has the value `"USA"` if the laureate is born in the US, and `"Other"` otherwise.
     How many of the winners are born in the US?
+    
+```{r echo=FALSE}
+nobel_living_science <- nobel_living_science %>%
+  mutate(
+    born_country_us = if_else(born_country == "USA", "USA", "Other")
+  )
+sum(nobel_living_science$born_country_us == "USA")
+
+```
 
 5.  Add a second variable to your visualization from Exercise 3 based on whether the laureate was born in the US or not.
     Based on your visualization, do the data appear to support Buzzfeed's claim?
@@ -291,6 +318,15 @@ This means you'll need to define this data frame in your R Markdown document, ev
     -   Your final visualization should contain a facet for each category.
     -   Within each facet, there should be a bar for whether the laureate won the award in the US or not.
     -   Each bar should have segments for whether the laureate was born in the US or not.
+
+```{r echo=FALSE}
+ggplot(nobel_living_science, aes(y = country_us, fill=born_country_us)) +
+  facet_wrap(~category) + 
+  geom_bar(position="stack") +
+  theme(legend.position="top") +
+  ggtitle("For each category") + 
+  labs(y="Country of award",fill="Country of birth",x="Number of laureates")
+```
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
@@ -301,6 +337,17 @@ Note that your bar plot won't exactly match the one from the Buzzfeed article. T
 ```
 
 6.  In a single pipeline, filter for laureates who won their prize in the US, but were born outside of the US, and then create a frequency table (with the `count()` function) for their birth country (`born_country`) and arrange the resulting data frame in descending order of number of observations for each country. Which country is the most common?
+
+```{r echo=FALSE}
+nobel_living_science_filtered <- nobel_living_science %>%
+filter(country_us == "USA") %>%
+filter(born_country_us == "Other")
+
+count(nobel_living_science_filtered, born_country, sort = TRUE)
+
+print("The most common is Germany and United Kingdom.")
+
+```
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
