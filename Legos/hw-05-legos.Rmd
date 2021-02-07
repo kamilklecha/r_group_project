@@ -64,12 +64,18 @@ For each question, state your answer in a sentence, e.g. "In this sample, the fi
 Note that the answers to all questions are within the context of this particular sample of sales, i.e. you shouldn't make inferences about the population of all Lego sales based on this sample.
 
 1.  What are the three most common first names of purchasers?
+
+
 In this sample, the three common first names of purchasers are Jackson, Jacob, Joseph
 
 2.  What are the three most common themes of Lego sets purchased?
+
+
 In this sample, the three most common themes of Lego sets purchased are Star Wars, Nexo Knights, Gear, and Mixels
 
 3.  Among the most common theme of Lego sets purchased, what is the most common subtheme?
+
+
 In this sample, the most common theme of Lego sets purchased is Star Wars, and the most common subtheme is The Force Awakens 
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
@@ -134,10 +140,25 @@ In this sample Star Wars has made the most money for Lego
 
 8.  Which area code has spent the most money on Legos?
     In the US the area code is the first 3 digits of a phone number.
-    
+
+```{r echo=FALSE}
+lego_sales %>%
+  mutate(
+    amount_spent = us_price * quantity
+  ) %>%
+  group_by(substr(phone_number, 1, 3)) %>%
+  summarise(
+    total_spent = sum(amount_spent)
+  ) %>%
+  arrange(desc(total_spent))  
+```  
+
+In this sample area code of 956 (state of Texas) has spent the most money on Legos
     
 
 9.  Come up with a question you want to answer using these data, and write it down.
     Then, create a data visualization that answers the question, and explain how your visualization answers the question.
+    
+    /question under construction/ll
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
