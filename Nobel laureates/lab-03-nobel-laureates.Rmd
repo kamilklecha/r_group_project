@@ -215,7 +215,6 @@ You don't have to switch at each exercise, you can find your a cadence that work
 nrow(nobel)
 ncol(nobel)
 print("Each row represents a nobel laureat.")
-  
 ```
 
 There are some observations in this dataset that we will exclude from our analysis to match the Buzzfeed results.
@@ -227,12 +226,9 @@ There are some observations in this dataset that we will exclude from our analys
 -   laureates who are still alive (their `died_date` is `NA`)
 
 ```{r echo=FALSE}
-nobel_living <- nobel %>%
-  filter(
-    !is.na(country),
-    gender != "org",
-    is.na(died_date)
-  )
+nobel_living <- filter(nobel, !is.na(country), gender!="org", is.na(died_date))
+
+head(nobel_living)
 ```
 
 Confirm that once you have filtered for these characteristics you are left with a data frame with `r nrow(nobel_living)` observations, once again using inline code.
