@@ -28,22 +28,35 @@ df <- tribble(
 )
 
 dates = seq(as.Date('2020-7-12'), as.Date('2020-8-3'), by = "day")
+df$date = dates
 
+#making dataframe with daily difference
 daily_mask = ave(df$mask, FUN=function(x) c(NA,diff(x)))
 daily_nomask = ave(df$nomask, FUN=function(x) c(NA,diff(x)))
+df_daily = data.frame(df)
+df_daily$mask = daily_mask
+df_daily$nomask = daily_nomask
 
 
 
-plot_regular = ggplot(df, aes(x=dates)) +
+
+plot_regular = ggplot(df, aes(x=date)) +
   geom_path(aes(y=mask, group=1, color="Mask"), size=1.5) +
   geom_path(aes(y=nomask, group=1, color="No Mask"), size=1.5)
 
-plot_daily = ggplot(df, aes(x=dates)) +
-  geom_col(aes(y=daily_mask, group=1, color="Mask"), size=1.5) +
-  geom_col(aes(y=daily_nomask, group=1, color="No Mask"), size=1.5)
 
-plot(plot_daily)
-
+#daily df wide to long
+df_daily$date = factor(df_daily$date)
+df_daily_long = gather(df, ifmasked, cases, mask, nomask)
 
 
+plot_daily = ggplot(df_daily_long, aes(x = date, y = cases, fill = ifmasked)) +
+  geom_col( position = "dodge")
+
+plot(plot_regular)
+
+
+
+  
+  
   
