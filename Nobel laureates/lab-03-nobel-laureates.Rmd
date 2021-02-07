@@ -227,7 +227,6 @@ There are some observations in this dataset that we will exclude from our analys
 
 ```{r echo=FALSE}
 nobel_living <- filter(nobel, !is.na(country), gender!="org", is.na(died_date))
-
 head(nobel_living)
 ```
 
@@ -275,6 +274,14 @@ This means you'll need to define this data frame in your R Markdown document, ev
     -   Your visualization should be faceted by category.
     -   For each facet you should have two bars, one for winners in the US and one for Other.
     -   Flip the coordinates so the bars are horizontal, not vertical.
+
+```{r echo=FALSE}
+ggplot(nobel_living_science, aes(y = category, fill=country_us)) +
+  geom_bar(position="dodge") +
+  theme(legend.position="top")
+
+print("It seems like the data supports the claim, as most of the Nobel lauerates were based in US when being awarded with that prize.")
+```
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.d*
 
