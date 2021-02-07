@@ -1,5 +1,5 @@
 ---
-title: "Lab 03 - Nobel laureates"
+title: "Lab 03 - Nobel laureates 2"
 output: 
   tufte::tufte_html:
     css: lab.css
