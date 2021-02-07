@@ -338,6 +338,17 @@ Note that your bar plot won't exactly match the one from the Buzzfeed article. T
 
 6.  In a single pipeline, filter for laureates who won their prize in the US, but were born outside of the US, and then create a frequency table (with the `count()` function) for their birth country (`born_country`) and arrange the resulting data frame in descending order of number of observations for each country. Which country is the most common?
 
+```{r echo=FALSE}
+nobel_living_science_filtered <- nobel_living_science %>%
+filter(country_us == "USA") %>%
+filter(born_country_us == "Other")
+
+count(nobel_living_science_filtered, born_country, sort = TRUE)
+
+print("The most common is Germany and United Kingdom.")
+
+```
+
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
 Now go back through your write up to make sure you've answered all questions and all of your R chunks are properly labelled.
