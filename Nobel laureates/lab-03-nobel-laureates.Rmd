@@ -118,6 +118,7 @@ ggplot(nobel_living_science, aes(y = country_us, fill=born_country_us)) +
   ggtitle("For each category") + 
   labs(y="Country of award",fill="Country of birth",x="Number of laureates")
 ```
+As the bar chart shows, majority of Laureats who won their Nobel Prize in the USA were also born in the USA. However, the percentage of Laureats  who won the Nobel Prize in the USA, but who were born in different countries is high, which leads to the conclusion that based on the visualization, the data support Buzzzfeed’s claim.
 \hfill\break
 
 **6.  In a single pipeline, filter for laureates who won their prize in the US, but were born outside of the US, and then create a frequency table (with the `count()` function) for their birth country (`born_country`) and arrange the resulting data frame in descending order of number of observations for each country. Which country is the most common?**
