@@ -1,0 +1,26 @@
+---
+title: "Final report for R group project"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Team members:
+
+### Yevhenii Rachynskyi
+ - Task 1
+ 
+### Honorata Hurnik
+ - Task 2
+ 
+### Szymon Rynkun
+ - Task 3
+ 
+### Kamil Klecha
+ - Task 2
+ - repository management
+ 
+# Git repository:
+ https://github.com/kamilklecha/r_group_project
