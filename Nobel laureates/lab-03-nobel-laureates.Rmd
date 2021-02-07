@@ -1,6 +1,10 @@
 ---
 title: "Lab 03 - Nobel laureates"
+<<<<<<< HEAD
 author: "Cat and dog"
+=======
+author: "Honorata Hurnik + Kamil Klecha"
+>>>>>>> 0b5146f0cde32d27290dc7856e34b44137843368
 output: 
   tufte::tufte_html:
     css: lab.css
