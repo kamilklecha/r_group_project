@@ -1,5 +1,6 @@
 ---
 title: "Lab 03 - Nobel laureates"
+author: "Cat and dog"
 output: 
   tufte::tufte_html:
     css: lab.css
