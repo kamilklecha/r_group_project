@@ -45,7 +45,7 @@ df_daily
 plot_regular = ggplot(df, aes(x=date)) +
   geom_path(aes(y=mask, group=1, color="Mask"), size=1.5) +
   geom_path(aes(y=nomask, group=1, color="No Mask"), size=1.5) +
-  labs(x="Date", y="Average cases", fill="Counties",
+  labs(x="Date", y="Average cases", color="Counties",
        title="7-day rolling average of daily cases/100K population")
 
 

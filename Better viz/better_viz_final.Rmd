@@ -9,32 +9,36 @@ output: word_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
 # Conveying the right message through visualisation
 
-The code further visualizations is located in vetter_viz.R script.
+
+#### Code and data (Ex.1)
+
+The code for further visualizations is located in better_viz.R script.
 ```{r, include=FALSE}
 source("better_viz.R", local = knitr::knit_global())
 ```
 
-## Exercise 1
+## The original figure
+
+Here is the original visualization:
+```{r fig.fullwidth = TRUE, echo = FALSE}
+knitr::include_graphics("img/masks-v-nomasks.png")
+```
+
+The misleading aspect of it are surely two different scales for Y axis. The difference in scales is hard to spot and since Y axis presents only one type of data (number of cases), average person probably wouldn't even look for them, since it is not expected.
+
+This decision was most likely done, to underline the diminishing number of cases in "masked" counties in contrast to "unmasked" and not waste viewers attention on comparing total number of cases between them. The intensions may be honorable, but this is not, how data should be presented.
+
+### New plot (Ex.2)
+
+The plot below fixes this issue, using one scale for both groups of counties.
+
+```{r, echo=FALSE}
+plot(plot_regular)
+```
+
+### New message? (Ex.3)
+In here we can see, that mask counties have actually higher average number of cases than counties without mandatory mask wearing. 
+
+
