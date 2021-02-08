@@ -28,3 +28,13 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+# Conveying the right message through visualisation
+
+The code further visualizations is located in vetter_viz.R script.
+```{r, include=FALSE}
+source("better_viz.R", local = knitr::knit_global())
+```
+
+## Exercise 1

@@ -44,7 +44,9 @@ df_daily
 
 plot_regular = ggplot(df, aes(x=date)) +
   geom_path(aes(y=mask, group=1, color="Mask"), size=1.5) +
-  geom_path(aes(y=nomask, group=1, color="No Mask"), size=1.5)
+  geom_path(aes(y=nomask, group=1, color="No Mask"), size=1.5) +
+  labs(x="Date", y="Average cases", fill="Counties",
+       title="7-day rolling average of daily cases/100K population")
 
 
 #daily df wide to long
@@ -55,7 +57,8 @@ df_daily_long = gather(df_daily, ifmasked, cases, mask, nomask)
 plot_daily = ggplot(df_daily_long, aes(x = date, y = cases, fill = ifmasked)) +
   geom_col( position = "dodge") +
   theme(axis.text.x = element_text(angle = -30, vjust = 1, hjust = 0)) +
-  labs(x="Date", y="Change of the average", fill="Counties", title="Daily change between 7-day rolling average of daily cases/100K population")
+  labs(x="Date", y="Change of the average", fill="Counties",
+       title="Daily change between 7-day rolling average of daily cases/100K population")
 
 
 
