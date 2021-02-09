@@ -39,6 +39,23 @@ plot(plot_regular)
 ```
 
 ### New message? (Ex.3)
-In here we can see, that mask counties have actually higher average number of cases than counties without mandatory mask wearing. 
+In here we can see, that mask counties have actually higher average number of cases than counties without mandatory mask wearing. Nevertheless, it still can be seen, that counties with obligatory masks have average number of cases dropping significantly, while no mask counties numbers oscillate around similar values over time.
+
+### What does it tell about mask wearing? (Ex.4)
+
+Th information that mask-wearing counties have more total cases could be a fuel to various anti-mask movements (no wonder original author tried to hide it). But is it really a reasonable argument?
+
+There are couple of crucial information missing for a legitimate conclusion of this kind to be made. First (and most important) of all, we have no characteristics of mask and no-mask counties groups. For example, counties with mandatory mask wearing may have higher population density, higher overall population, more commotion. In that case, the higher number of covid cases are naturally expected, despite masks being obligatory or not.
+Secondly, having a wider time spectrum would surely be useful. We don't know how the numbers were before preview window: whether decline in masked counties lasted for longer than presented, what were the numbers before mask wearing had come into force, what are the overall trends, had no mask counties numbers risen or decline before. 
+
+#### Additional figure
+
+In the light of this, here is another plot, that magnifies what I presume original author wanted to - there is visible decline in mask counties and no distinct change in no mask counties.
+
+```{r, echo=FALSE}
+plot(plot_daily)
+```
+
+The plot could also be done using percentile change in number of cases, which would be more representative if the magnitude of cases differed a lot, but in this case I think it wasn't necessary. 
 
 

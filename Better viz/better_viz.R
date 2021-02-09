@@ -1,7 +1,7 @@
 library(tidyverse)
 
 df <- tribble(
-  ~date, ~mask, ~nomask,
+  ~date, ~mask, ~no_mask,
   "12/7/2020", 25.2, 9.9,
   "13/7/2020", 19.8, 9.3,
   "14/7/2020", 19.7, 9.5,
@@ -32,10 +32,10 @@ df$date = dates
 
 #making dataframe with daily difference
 daily_mask = ave(df$mask, FUN=function(x) c(NA,diff(x)))
-daily_nomask = ave(df$nomask, FUN=function(x) c(NA,diff(x)))
+daily_no_mask = ave(df$no_mask, FUN=function(x) c(NA,diff(x)))
 df_daily = data.frame(df)
 df_daily$mask = daily_mask
-df_daily$nomask = daily_nomask
+df_daily$no_mask = daily_no_mask
 df_daily = df_daily[-1,] #i remove first element since there is no previous value to differ
 df_daily
 
@@ -44,14 +44,14 @@ df_daily
 
 plot_regular = ggplot(df, aes(x=date)) +
   geom_path(aes(y=mask, group=1, color="Mask"), size=1.5) +
-  geom_path(aes(y=nomask, group=1, color="No Mask"), size=1.5) +
+  geom_path(aes(y=no_mask, group=1, color="No Mask"), size=1.5) +
   labs(x="Date", y="Average cases", color="Counties",
        title="7-day rolling average of daily cases/100K population")
 
 
 #daily df wide to long
 df_daily$date = factor(df_daily$date)
-df_daily_long = gather(df_daily, ifmasked, cases, mask, nomask)
+df_daily_long = gather(df_daily, ifmasked, cases, mask, no_mask)
 
 
 plot_daily = ggplot(df_daily_long, aes(x = date, y = cases, fill = ifmasked)) +
